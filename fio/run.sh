@@ -53,14 +53,22 @@ OUTPUT_BW=${OUTPUT}-bandwidth.json
 OUTPUT_LAT=${OUTPUT}-latency.json
 
 echo Benchmarking $IOPS_FIO into $OUTPUT_IOPS
+echo start at `date +"%T"`
 fio $CURRENT_DIR/$IOPS_FIO $IDLE_PROF --filename=$TEST_FILE --size=$TEST_SIZE \
 	--output-format=json --output=$OUTPUT_IOPS
+echo stop at `date +"%T"`
+
 echo Benchmarking $BW_FIO into $OUTPUT_BW
+echo start at `date +"%T"`
 fio $CURRENT_DIR/$BW_FIO $IDLE_PROF --filename=$TEST_FILE --size=$TEST_SIZE \
 	--output-format=json --output=$OUTPUT_BW
+echo stop at `date +"%T"`
+
 echo Benchmarking $LAT_FIO into $OUTPUT_LAT
+echo start at `date +"%T"`
 fio $CURRENT_DIR/$LAT_FIO $IDLE_PROF --filename=$TEST_FILE --size=$TEST_SIZE \
 	--output-format=json --output=$OUTPUT_LAT
+echo stop at `date +"%T"`
 
 if [ -z "$SKIP_PARSE" ]; then
         $CURRENT_DIR/parse.sh $OUTPUT
